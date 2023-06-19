@@ -39,5 +39,17 @@ public class Contact {
         if (this.phoneNumber.isBlank()) {
             throw new RuntimeException("Phone number cannot be null or empty.");
         }
+
+        if (this.phoneNumber.length() != 14) {
+            throw new RuntimeException("Phone number must be 14 digits long.");
+        }
+
+        if (!this.phoneNumber.matches("\\d+")) {
+            throw new RuntimeException("Phone number must contain only digits.");
+        }
+
+        if (!this.phoneNumber.startsWith("0")) {
+            throw new RuntimeException("Phone number must start with 0.");
+        }
     }
 }

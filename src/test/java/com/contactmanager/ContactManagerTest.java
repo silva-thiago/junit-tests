@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class ContactManagerTest {
     @Test
-    @DisplayName("Shoud create a contact")
-    public void should_create_a_contact() {
+    @DisplayName("Shoud be able to create a contact")
+    void should_create_a_contact() {
         ContactManager contactManager = new ContactManager();
         contactManager.addContact("John", "Doe", "01234567890123");
         Assertions.assertFalse(contactManager.getAllContacts().isEmpty());
@@ -22,8 +22,8 @@ class ContactManagerTest {
     }
 
     @Test
-    @DisplayName("Should not create a contact when first name is null")
-    public void should_not_create_a_contact_when_first_name_is_null() {
+    @DisplayName("Should not be able to create a contact when first name is null")
+    void should_not_create_a_contact_when_first_name_is_null() {
         ContactManager contactManager = new ContactManager();
         Assertions.assertThrows(RuntimeException.class, () -> {
             contactManager.addContact(null, "Doe", "01234567890123");
@@ -31,8 +31,8 @@ class ContactManagerTest {
     }
 
     @Test
-    @DisplayName("Should not create a contact when last name is null")
-    public void should_not_create_a_contact_when_last_name_is_null() {
+    @DisplayName("Should not be able to create a contact when last name is null")
+    void should_not_create_a_contact_when_last_name_is_null() {
         ContactManager contactManager = new ContactManager();
         Assertions.assertThrows(RuntimeException.class, () -> {
             contactManager.addContact("John", null, "01234567890123");
@@ -40,8 +40,8 @@ class ContactManagerTest {
     }
 
     @Test
-    @DisplayName("Should not create a contact when phone number is null")
-    public void should_not_create_a_contact_when_phone_number_is_null() {
+    @DisplayName("Should not be able to create a contact when phone number is null")
+    void should_not_create_a_contact_when_phone_number_is_null() {
         ContactManager contactManager = new ContactManager();
         Assertions.assertThrows(RuntimeException.class, () -> {
             contactManager.addContact("John", "Doe", null);

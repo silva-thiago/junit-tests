@@ -20,4 +20,31 @@ class ContactManagerTest {
                 .isPresent()
         );
     }
+
+    @Test
+    @DisplayName("Should not create a contact when first name is null")
+    public void should_not_create_a_contact_when_first_name_is_null() {
+        ContactManager contactManager = new ContactManager();
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contactManager.addContact(null, "Doe", "01234567890123");
+        });
+    }
+
+    @Test
+    @DisplayName("Should not create a contact when last name is null")
+    public void should_not_create_a_contact_when_last_name_is_null() {
+        ContactManager contactManager = new ContactManager();
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contactManager.addContact("John", null, "01234567890123");
+        });
+    }
+
+    @Test
+    @DisplayName("Should not create a contact when phone number is null")
+    public void should_not_create_a_contact_when_phone_number_is_null() {
+        ContactManager contactManager = new ContactManager();
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            contactManager.addContact("John", "Doe", null);
+        });
+    }
 }

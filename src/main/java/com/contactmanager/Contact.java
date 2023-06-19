@@ -22,4 +22,22 @@ public class Contact {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
+    public void validateFirstName() {
+        if (this.firstName.isBlank()) {
+            throw new RuntimeException("First name cannot be null or empty.");
+        }
+    }
+
+    public void validateLastName() {
+        if (this.lastName.isBlank()) {
+            throw new RuntimeException("Last name cannot be null or empty.");
+        }
+    }
+
+    public void validatePhoneNumber() {
+        if (this.phoneNumber.isBlank()) {
+            throw new RuntimeException("Phone number cannot be null or empty.");
+        }
+    }
 }

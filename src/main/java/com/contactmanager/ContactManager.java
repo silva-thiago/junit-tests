@@ -1,5 +1,6 @@
 package com.contactmanager;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,6 +10,10 @@ public class ContactManager {
     public void addContact(String firstName, String lastName, String phoneNumber) {
         Contact contact = new Contact(firstName, lastName, phoneNumber);
         contactList.put(generateKey(contact), contact);
+    }
+
+    public Collection<Contact> getAllContacts() {
+        return contactList.values();
     }
 
     private String generateKey(Contact contact) {

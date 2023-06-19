@@ -6,8 +6,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
+
+import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ContactManagerTest {
@@ -30,13 +36,16 @@ class ContactManagerTest {
         contactManager.addContact("John", "Doe", "01234567890123");
         Assertions.assertFalse(contactManager.getAllContacts().isEmpty());
         Assertions.assertEquals(1, contactManager.getAllContacts().size());
-        Assertions.assertTrue(contactManager.getAllContacts().stream()
-                .filter(contact -> contact.getFirstName().equals("John") &&
-                        contact.getLastName().equals("Doe") &&
-                        contact.getPhoneNumber().equals("01234567890123"))
-                .findAny()
-                .isPresent()
-        );
+        Assertions.assertTrue(contactManager.getAllContacts()
+                                            .stream()
+                                            .filter(contact -> contact.getFirstName()
+                                                                      .equals("John")
+                                                    && contact.getLastName()
+                                                              .equals("Doe")
+                                                    && contact.getPhoneNumber()
+                                                              .equals("01234567890123"))
+                                            .findAny()
+                                            .isPresent());
     }
 
     @Test
@@ -61,6 +70,31 @@ class ContactManagerTest {
         Assertions.assertThrows(RuntimeException.class, () -> {
             contactManager.addContact("John", "Doe", null);
         });
+    }
+
+    @Nested
+    class parameterizedTests {
+        @ParameterizedTest
+        @DisplayName("Should be able to match the required format of phones numbers through a value source")
+        @ValueSource(strings = {"01234567890123", "01234567890123", "01234567890123", "01234567890123"})
+        void should_be_able_to_match_the_required_format_of_phones_numbers_through_a_value_source(String phoneNumber) {
+            contactManager.addContact("John", "Doe", phoneNumber);
+            Assertions.assertFalse(contactManager.getAllContacts().isEmpty());
+            Assertions.assertEquals(1, contactManager.getAllContacts().size());
+        }
+
+        @ParameterizedTest
+        @DisplayName("Should be able to match the required format of phones numbers through a method source")
+        @MethodSource("phoneNumbersList")
+        void should_be_able_to_match_the_required_format_of_phones_numbers_through_a_method_source(String phoneNumber) {
+            contactManager.addContact("John", "Doe", phoneNumber);
+            Assertions.assertFalse(contactManager.getAllContacts().isEmpty());
+            Assertions.assertEquals(1, contactManager.getAllContacts().size());
+        }
+
+        private static List<String> phoneNumbersList() {
+            return List.of("01234567890123", "01234567890123", "01234567890123", "01234567890123");
+        }
     }
 
     @AfterEach

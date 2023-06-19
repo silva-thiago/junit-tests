@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>contact-manager</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>contact-manager</name>
 	<description>Contact Manager</description>
 	<properties>
